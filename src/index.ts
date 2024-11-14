@@ -110,7 +110,7 @@ const openApiSpec: OpenAPIV3.Document = {
   },
 };
 
-// Middleware to handle errors
+// Middleware to handle errors - ora con il parametro 'next' richiesto da Express
 app.use((err: Error, _: express.Request, res: express.Response) => {
   console.error(err);
   res.status(500).json({ error: 'Internal server error' });
@@ -132,7 +132,7 @@ app.get('/health', (_: express.Request, res: express.Response) => {
 });
 
 // Prediction endpoint
-app.get('/predict', async (req: express.Request, res: express.Response) => {
+app.get('/predict', async (req: express.Request, res: express.Response, next: express.NextFunction) => {
   try {
     // Validate query parameters
     const validatedData = QuerySchema.parse(req.query);
@@ -168,8 +168,7 @@ app.get('/predict', async (req: express.Request, res: express.Response) => {
     if (error instanceof z.ZodError) {
       res.status(400).json({ error: 'Invalid input parameters', details: error.errors });
     } else {
-      console.error('Error processing request:', error);
-      res.status(500).json({ error: 'Internal server error' });
+      next(error); // Passa l'errore al middleware di gestione errori
     }
   }
 });
