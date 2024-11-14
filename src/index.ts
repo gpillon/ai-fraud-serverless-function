@@ -1,4 +1,3 @@
-import { HttpFunction } from '@google-cloud/functions-framework';
 import express from 'express';
 import { z } from 'zod';
 import axios from 'axios';
@@ -7,6 +6,7 @@ import { OpenAPIV3 } from 'openapi-types';
 import * as fs from 'fs';
 
 const app = express();
+const PORT = 8080;
 
 // Load scaler values (instead of using pickle, we'll store the values directly)
 const scalerData = JSON.parse(fs.readFileSync('src/scaler.json', 'utf-8'));
@@ -181,5 +181,7 @@ app.get('/', (_: express.Request, res: express.Response) => {
   });
 });
 
-// Export the express app as a Cloud Function
-export const fraudDetector: HttpFunction = app;
+// Start the server
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
