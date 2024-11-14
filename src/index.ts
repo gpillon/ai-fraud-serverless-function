@@ -9,7 +9,7 @@ import * as fs from 'fs';
 const app = express();
 
 // Load scaler values (instead of using pickle, we'll store the values directly)
-const scalerData = JSON.parse(fs.readFileSync('scaler.json', 'utf-8'));
+const scalerData = JSON.parse(fs.readFileSync('src/scaler.json', 'utf-8'));
 
 // Validation schema using zod
 const QuerySchema = z.object({
