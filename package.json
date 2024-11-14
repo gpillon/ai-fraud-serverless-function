@@ -8,7 +8,7 @@
     "url": ""
   },
   "scripts": {
-    "build": "npx -p typescript tsc",
+    "build": "npx -p typescript tsc && cp -r src/scaler.json build/scaler.json",
     "pretest": "npm run lint && npm run build",
     "test:unit": "ts-node node_modules/tape/bin/tape test/unit.ts",
     "test:integration": "ts-node node_modules/tape/bin/tape test/integration.ts",
