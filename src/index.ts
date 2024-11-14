@@ -1,4 +1,4 @@
-import { Context, HttpFunction } from '@google-cloud/functions-framework';
+import { HttpFunction } from '@google-cloud/functions-framework';
 import express from 'express';
 import { z } from 'zod';
 import axios from 'axios';
