@@ -111,7 +111,7 @@ const openApiSpec: OpenAPIV3.Document = {
 };
 
 // Middleware to handle errors - ora con il parametro 'next' richiesto da Express
-app.use((err: Error, _: express.Request, res: express.Response) => {
+app.use((err: Error, _: express.Request, res: express.Response, _unused: express.NextFunction) => {
   console.error(err);
   res.status(500).json({ error: 'Internal server error' });
 });
