@@ -29,7 +29,7 @@ with open('scaler.pkl', 'rb') as handle:
     scaler = pickle.load(handle)
 
 # Configuration
-FRAUD_MODEL_URL = os.getenv('FRAUD_MODEL_URL', 'https://fraud-predictor-bionda.apps.okd-01.ocp.pillon.org/v2/models/fraud/infer')
+FRAUD_MODEL_URL = os.getenv('FRAUD_MODEL_URL')
 THRESHOLD = float(os.getenv('FRAUD_THRESHOLD', '0.95'))
 
 class TransactionResponse(BaseModel):

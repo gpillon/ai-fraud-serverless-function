@@ -1,0 +1,28 @@
+version: 0.19.0
+name: fraud-detector
+runtime: python
+registry: ""
+image: ""
+imageDigest: ""
+created: 2024-11-14T10:00:00Z
+invoke: http
+build:
+  buildpacks: []
+  builder: pack
+  buildEnvs: []
+run:
+  volumes: []
+  envs:
+  - name: FRAUD_MODEL_URL
+    value: "https://fraud-predictor-bionda.apps.okd-01.ocp.pillon.org/v2/models/fraud/infer"
+  - name: FRAUD_THRESHOLD
+    value: "0.95"
+deploy:
+  namespace: ""
+  remote: false
+  annotations: {}
+  options: {}
+  labels: []
+  healthEndpoints:
+    liveness: /health
+    readiness: /health
