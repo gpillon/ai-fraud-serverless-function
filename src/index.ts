@@ -111,7 +111,7 @@ const openApiSpec: OpenAPIV3.Document = {
 };
 
 // Middleware to handle errors
-app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
+app.use((err: Error, _: express.Request, res: express.Response) => {
   console.error(err);
   res.status(500).json({ error: 'Internal server error' });
 });
@@ -127,7 +127,7 @@ function normalizeData(data: number[]): number[] {
 }
 
 // Health check endpoint
-app.get('/health', (req: express.Request, res: express.Response) => {
+app.get('/health', (_: express.Request, res: express.Response) => {
   res.json({ status: 'healthy' });
 });
 
@@ -175,7 +175,7 @@ app.get('/predict', async (req: express.Request, res: express.Response) => {
 });
 
 // Root endpoint
-app.get('/', (req: express.Request, res: express.Response) => {
+app.get('/', (_: express.Request, res: express.Response) => {
   res.json({
     message: 'Welcome to Fraud Detection API. Visit /docs for Swagger documentation',
   });
