@@ -148,6 +148,10 @@ app.get('/predict', async (req: express.Request, res: express.Response, next: ex
     const normalizedData = normalizeData(rawData);
 
     // Call the model service
+
+    const agent = new https.Agent({  
+        rejectUnauthorized: false
+    });
     const response = await axios.post(process.env.FRAUD_MODEL_URL || '', {
       inputs: [{
         name: 'dense_input',
@@ -155,7 +159,8 @@ app.get('/predict', async (req: express.Request, res: express.Response, next: ex
         datatype: 'FP32',
         data: normalizedData,
       }],
-    });
+    }, 
+    { httpsAgent: agent });
 
     const fraudProbability = response.data.outputs[0].data[0];
     const threshold = Number(process.env.FRAUD_THRESHOLD || 0.95);
